@@ -99,6 +99,22 @@ export default [
     ]
   },
   {
+    path: '/file-process',
+    name: 'file-process',
+    component: Main,
+    children: [
+      {
+        path: 'file_process',
+        name: '处理文件',
+        meta: {
+          icon: 'ios-navigate',
+          title: '处理文件'
+        },
+        component: () => import('@/view/file-process/file-process.vue')
+      }
+    ]
+  },
+  {
     path: '',
     name: 'doc',
     meta: {

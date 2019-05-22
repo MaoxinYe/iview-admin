@@ -36,6 +36,8 @@ export default {
             name: this.$config.homeName
           })
         })
+      }).catch(()=>{
+          this.$Message.info('账号或密码错误');
       })
     }
   }

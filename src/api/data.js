@@ -19,6 +19,17 @@ export const deleteFile = (id) => {
   })
 }
 
+export const downloadFile = (id) => {
+  console.log('进入downloadFile'+id)
+  return myrequest.request({
+    url: '/api/file/download',
+    params: {
+      file_id: id
+    },
+    method: 'get'
+  })
+}
+
 export function  getFileData(){
   console.log('99999999')
   return service({
