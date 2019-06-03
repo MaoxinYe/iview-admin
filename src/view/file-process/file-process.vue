@@ -22,9 +22,18 @@
         <p>这是你选的算法</p>
       </Modal>
     </Form>
+
 <!--    <Select @on-change="getItemValue" v-model="model10" multiple style="width:260px">-->
 <!--      <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
 <!--    </Select>-->
+    <p>当前正在进行第 {{ current + 1 }} 步</p>
+    <Steps :current="current">
+      <Step title="步骤1" ></Step>
+      <Step title="步骤2"></Step>
+      <Step title="步骤3"></Step>
+      <Step title="步骤4"></Step>
+    </Steps>
+    <Button type="primary" @click="add">下一步</Button>
   </Card>
 </template>
 
@@ -60,7 +69,8 @@
             }
           ],
           model10: [],
-          modal1: false
+          modal1: false,
+          current:0
         }
       },
       methods:{
@@ -75,6 +85,10 @@
         },
         cancel () {
           this.$Message.info('Clicked cancel');
+        },
+        add()
+        {
+          this.current++
         }
       },
       mounted() {

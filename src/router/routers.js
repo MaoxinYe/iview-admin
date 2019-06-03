@@ -27,6 +27,15 @@ export default [
     },
     component: () => import('@/view/login/login.vue')
   },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {
+      title: 'Login - 注册',
+      hideInMenu: true
+    },
+    component: () => import('@/view/register/register.vue')
+  },
   // {
   //   path: '/',
   //   name: '_home',
@@ -111,6 +120,22 @@ export default [
           title: '处理文件'
         },
         component: () => import('@/view/file-process/file-process.vue')
+      }
+    ]
+  },
+  {
+    path: '/task-page',
+    name: 'task-page',
+    component: Main,
+    children: [
+      {
+        path: 'task_page',
+        name: '查看任务',
+        meta: {
+          icon: 'ios-navigate',
+          title: '查看任务'
+        },
+        component: () => import('@/view/task-process/task-page.vue')
       }
     ]
   },
