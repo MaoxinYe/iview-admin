@@ -18,6 +18,23 @@ import 'v-org-tree/dist/v-org-tree.css'
 // 实际打包时应该不引入mock
 /* eslint-disable */
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
+import VuePreview from 'vue-preview'
+
+// defalut install
+Vue.use(VuePreview)
+
+// // with parameters install
+// Vue.use(preview, {
+//   mainClass: 'pswp--minimal--dark',
+//   barsSize: {top: 0, bottom: 0},
+//   captionEl: false,
+//   fullscreenEl: false,
+//   shareEl: false,
+//   bgOpacity: 0.85,
+//   tapToClose: true,
+//   tapToToggleControls: false
+// })
+//以上是为了测试image-pre添加的
 require('@/mock')
 Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value)

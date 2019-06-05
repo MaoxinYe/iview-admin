@@ -47,9 +47,9 @@ class MyHttpRequest {
     // 响应拦截
     instance.interceptors.response.use(res => {
       const { data, status } = res
-      console.log(data)
-      console.log('======================')
-      console.log(status)
+      // console.log(data)
+      // console.log('======================')
+      // console.log(status)
       if(data.code != 200 && data.code != 302)
         return Promise.reject('出错了')
       return { data, status }
@@ -69,7 +69,7 @@ class MyHttpRequest {
     })
   }
   request (options) {
-    console.log('+++++++++')
+    // console.log('+++++++++')
     const instance = axios.create()
     options = Object.assign(this.getInsideConfig(), options)
     this.interceptors(instance, options.url)

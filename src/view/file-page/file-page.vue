@@ -6,12 +6,16 @@
       <tables border ref="selection" v-model="tableData" :columns="columns" @on-delete="handleDelete" @on-selection-change="handleSelectRow"/>
       <Button style="margin: 10px 0;" type="primary" @click="processfile">处理文件</Button>
     </Card>
+
+
   </div>
 </template>
 
 <script>
   import Tables from '_c/tables'
-  import { getTableData ,deleteFile} from '@/api/data'
+  import { getTableData ,deleteFile,downloadFileById} from '@/api/data'
+  import axios from 'axios'
+  import jquery from 'jquery'
   export default {
     name: 'tables_page',
     components: {
@@ -61,7 +65,7 @@
                   on: {
                     click: () => {
                       console.log(params.row.id+'进来下载了')
-                      this.downloadFile(params.row.id)
+                      this.downloadFile(params.row.url)
                     }
                   }
                 }, '下载')
@@ -87,15 +91,52 @@
         getTableData().then(res => {
           this.tableData = res.data.data.file_list
         })
+        //这里可以添加一个如果是dir的话就不显示
       },
       deleteFile(id){
         deleteFile(id)
       },
-      downloadFile(id){
-        // downloadFile(id)
-        let url = "/api/file/download?file_id=" + id;
-        window.location.href = url;
+      downloadFile(file_url){
+        var form = jquery("<form>");//定义一个form表单
+        form.attr("id", "downloadform");
+        form.attr("style", "display:none");//将表单隐藏
+        form.attr("target", "");
+        form.attr("method", "post");
+        form.attr("action", '/api/file/download');
+
+        var input1 = jquery("<input>");
+        input1.attr("type", "hidden");
+        input1.attr("name", "file_url");
+        input1.attr("value", file_url);
+        //如果有多个参数，参照上面input1 的写法
+
+        form.append(input1);//一定要把参数添加到form里
+        jquery("body").append(form);//将表单放置在页面中
+        form.submit();//表单提交
+        jquery("#downloadform").remove();//移除表单
+        // axios({ // 用axios发送post请求
+        //   method: 'post',
+        //   url: '/api/file/download', // 请求地址
+        //   data: {file_url}, // 参数
+        //   responseType: 'blob' // 表明返回服务器返回的数据类型
+        // }).then((res) => res.blob())
+
+        // downloadFileById(file_url).then(res => res.blob())
+        //   .then(data => {
+        //     let blobUrl = window.URL.createObjectURL(data);
+        //     this.download(blobUrl);
+        //   })
+        // let url = "/api/file/download?file_id=" + id;
+        // window.location.href = url;
       },
+     // download(blobUrl) {
+     //  const a = document.createElement('a');
+     //  a.style.display = 'none';
+     //  a.download = '导出的文件名';
+     //  a.href = blobUrl;
+     //  a.click();
+     //  document.body.removeChild(a);
+     //  },
       processfile(){
         console.log('processfile')
         console.log(this.selectedTableData)
@@ -113,6 +154,7 @@
     mounted () {
 
       getTableData().then(res => {
+        console.log(res)
         this.tableData = res.data.data.file_list
       })
     },

@@ -1,9 +1,54 @@
 import axios from '@/libs/api.request'
 import myrequest from '@/libs/myrequest'
 import service from '@/libs/request'
+
+export const getMethodData = () => {
+  return myrequest.request({
+    url: '/api/job/configs',
+    method: 'get'
+  })
+}
+
 export const getTableData = () => {
   return myrequest.request({
     url: '/api/file/',
+    method: 'get'
+  })
+}
+
+export const downloadFileById = (file_url) => {
+  const data={file_url}
+  console.log(data)
+  console.log('上面答应下data')
+  return myrequest.request({
+    url: '/api/file/download',
+    method: 'post',
+    data:data
+  })
+}
+
+export const getTaskFileList = (file_url) => {
+  const data={file_url}
+  return myrequest.request({
+    url: '/api/file/url_status',
+    method: 'post',
+    data:data
+  })
+}
+
+export const getTaskDataByID = (id) => {
+  return myrequest.request({
+    url: '/api/job/status',
+    method: 'get',
+    params:{
+      job_id:id
+    }
+  })
+}
+
+export const getJobData = () => {
+  return myrequest.request({
+    url: '/api/job/',
     method: 'get'
   })
 }
@@ -64,6 +109,14 @@ export const saveErrorLogger = info => {
 export const uploadImg = formData => {
   return myrequest.request({
     url: '/api/file/upload',
+    method: 'post',
+    data: formData
+  })
+}
+
+export const fileProcess = formData => {
+  return myrequest.request({
+    url: '/api/job/create',
     method: 'post',
     data: formData
   })

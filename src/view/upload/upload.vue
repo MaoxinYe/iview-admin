@@ -9,9 +9,9 @@
         ref="upload"
         :before-upload="handleUpload"
         action="//jsonplaceholder.typicode.com/posts/">
-        <Button icon="ios-cloud-upload-outline">Select the file to upload</Button>
+        <Button icon="ios-cloud-upload-outline">选择你要上传的文件</Button>
       </Upload>
-      <div v-if="file !== null">Upload file: {{ file.name }} <Button type="text" @click="upload" :loading="loadingStatus">{{ loadingStatus ? 'Uploading' : 'Click to upload' }}</Button></div>
+      <div v-if="file !== null">你选择的文件是: {{ file.name }} <Button type="text" @click="upload" :loading="loadingStatus">{{ loadingStatus ? 'Uploading' : '点击上传' }}</Button></div>
     </div>
 <!--    <Row>-->
 <!--      <i-col span="12">-->
